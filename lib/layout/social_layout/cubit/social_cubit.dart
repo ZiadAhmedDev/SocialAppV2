@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/modules/social%20app/chat/chat_screen.dart';
-import 'package:news_app/modules/social%20app/users/users_screen.dart';
 import 'package:news_app/modules/social%20app/new_post/new_post_screen.dart';
 import 'package:news_app/modules/social%20app/setting/setting_screen.dart';
 import 'package:news_app/modules/social%20app/feeds/feeds_screen.dart';
@@ -40,25 +41,24 @@ class SocialCubit extends Cubit<SocialState> {
           //   emit(SocialErrorGetUserData(error.toString()));
           // })
           ;
-      print(
-          'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
-      print(uId.toString());
-      print(
-          'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
-      print(
-          'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
-      print(res.data().toString());
-      print(
-          'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
+
+      // print(uId.toString());
+      // print(
+      //     'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
+      // print(
+      //     'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
+      // print(res.data().toString());
+      // print(
+      //     'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
       socialModel = SocialUserModel.fromJson(res.data()!);
-      printFullText(
-          'socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=');
-      printFullText(socialModel!.email.toString());
-      printFullText(
-          'socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=');
-      printFullText('res.id=res.id=res.id=res.id=res.id=res.id=res.id=');
-      printFullText(res.id.toString());
-      printFullText('res.id=res.id=res.id=res.id=res.id=res.id=res.id=');
+      // printFullText(
+      //     'socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=');
+      // printFullText(socialModel!.email.toString());
+      // printFullText(
+      //     'socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=');
+      // printFullText('res.id=res.id=res.id=res.id=res.id=res.id=res.id=');
+      // printFullText(res.id.toString());
+      // printFullText('res.id=res.id=res.id=res.id=res.id=res.id=res.id=');
       emit(SocialSuccessGetUserData());
     }
   }
@@ -69,14 +69,12 @@ class SocialCubit extends Cubit<SocialState> {
     FeedsLayout(),
     const ChatLayout(),
     NewPostLayout(),
-    const UsersLayout(),
     const SettingLayout(),
   ];
   List<String> titles = [
     'Home',
     'Chats',
     'New Post',
-    'Users',
     'Setting',
   ];
 
@@ -350,13 +348,19 @@ class SocialCubit extends Cubit<SocialState> {
           .get()
           .then((value) {
         value.docs.forEach((element) {
-          if (element.data()['uId'] != socialModel!.uId)
+          if (element.data()['uId'] != socialModel!.uId ||
+              element.data()['email'] != socialModel!.email ||
+              element.data()['phone'] != socialModel!.phone)
             userList.add(SocialUserModel.fromJson(element.data()));
         });
         emit(SocialSuccessGetAllUsers());
       }).catchError((onError) {
         emit(SocialErrorGetAllUsers(onError.toString()));
       });
+  }
+
+  void toggleNotificationIcon(bool isActive) {
+    emit(isActive ? NotificationInactiveState() : NotificationActiveState());
   }
 
   void sendMessage(

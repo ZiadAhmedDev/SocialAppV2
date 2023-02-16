@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:news_app/layout/social_layout/social_layout.dart';
 import 'package:news_app/modules/social%20app/Register/phone_auth/otp_screen.dart';
 
@@ -63,10 +64,11 @@ class RegisterScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('REGISTER',
+                        Text('REGISTER'.tr,
                             style: Theme.of(context).textTheme.headlineSmall),
                         Text(
-                            'REGISTER now to communicate with all your friends',
+                            'REGISTER now to communicate with all your friends'
+                                .tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
@@ -88,11 +90,11 @@ class RegisterScreen extends StatelessWidget {
                                         context, SocialLayout());
                                   });
                                 }
-                                return 'Name field can\'t be empty';
+                                return 'Name field can\'t be empty'.tr;
                               }
                               return null;
                             },
-                            label: 'Full Name',
+                            label: 'Full Name'.tr,
                             prefix: Icons.person),
                         const SizedBox(
                           height: 25,
@@ -102,11 +104,11 @@ class RegisterScreen extends StatelessWidget {
                             type: TextInputType.phone,
                             validate: (String? value) {
                               if (value!.isEmpty) {
-                                return 'Phone field can\'t be empty';
+                                return 'Phone field can\'t be empty'.tr;
                               }
                               return null;
                             },
-                            label: 'Phone',
+                            label: 'Phone'.tr,
                             prefix: Icons.phone_android_rounded),
                         const SizedBox(
                           height: 25,
@@ -116,11 +118,11 @@ class RegisterScreen extends StatelessWidget {
                             type: TextInputType.emailAddress,
                             validate: (String? value) {
                               if (value!.isEmpty) {
-                                return 'Email field can\'t be empty';
+                                return 'Email field can\'t be empty'.tr;
                               }
                               return null;
                             },
-                            label: 'Email Address',
+                            label: 'Email Address'.tr,
                             prefix: Icons.email_outlined),
                         const SizedBox(
                           height: 25,
@@ -158,11 +160,11 @@ class RegisterScreen extends StatelessWidget {
                             },
                             validate: (String? value) {
                               if (value!.isEmpty) {
-                                return 'password field can\'t be empty';
+                                return 'password field can\'t be empty'.tr;
                               }
                               return null;
                             },
-                            label: 'Password',
+                            label: 'Password'.tr,
                             prefix: Icons.lock_outlined),
                         const SizedBox(
                           height: 25,
@@ -192,7 +194,7 @@ class RegisterScreen extends StatelessWidget {
                                       ));
                                 }
                               },
-                              text: 'register'),
+                              text: 'register'.tr),
                           fallback: (context) => const Center(
                             child: CircularProgressIndicator(),
                           ),
@@ -200,15 +202,15 @@ class RegisterScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              'I already have an account  ',
+                            Text(
+                              'I already have an account  '.tr,
                               style: TextStyle(fontSize: 16),
                             ),
                             defaultTextButton(
                               function: () {
                                 navigateTo(context, LoginScreen());
                               },
-                              text: 'LOGIN',
+                              text: 'LOGIN'.tr,
                             )
                           ],
                         )

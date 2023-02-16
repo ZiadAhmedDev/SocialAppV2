@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/styles/colors.dart';
@@ -19,15 +20,15 @@ class EditLayout extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var model = SocialCubit.get(context).socialModel;
-          printFullText(
-              'profileImageprofileImageprofileImageprofileImageprofileImage');
+          // printFullText(
+          //     'profileImageprofileImageprofileImageprofileImageprofileImage');
           var profileImage = SocialCubit.get(context).profileImage;
-          printFullText(
-              'profileImageprofileImageprofileImageprofileImageprofileImage');
+          // printFullText(
+          //     'profileImageprofileImageprofileImageprofileImageprofileImage');
           var coverImage = SocialCubit.get(context).coverImage;
-          print('coverImagecoverImagecoverImagecoverImagecoverImagecoverImage');
+          // print('coverImagecoverImagecoverImagecoverImagecoverImagecoverImage');
           print(coverImage);
-          print('coverImagecoverImagecoverImagecoverImagecoverImagecoverImage');
+          // print('coverImagecoverImagecoverImagecoverImagecoverImagecoverImage');
           nameController.text = model!.name!;
           bioController.text = model.bio!;
           phoneController.text = model.phone!;
@@ -44,7 +45,7 @@ class EditLayout extends StatelessWidget {
                     );
                   },
                   child: Text(
-                    'Update',
+                    'Update'.tr,
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge!
@@ -55,7 +56,7 @@ class EditLayout extends StatelessWidget {
                   width: 10,
                 ),
               ],
-              title: const Text('Edit Profile'),
+              title: Text('Edit Profile'.tr),
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -155,11 +156,11 @@ class EditLayout extends StatelessWidget {
                       type: TextInputType.name,
                       validate: (String? value) {
                         if (value!.isEmpty) {
-                          return 'The name field can\'t be Empty';
+                          return 'The name field can\'t be Empty'.tr;
                         }
                         return null;
                       },
-                      label: 'Name',
+                      label: 'Name'.tr,
                       prefix: IconBroken.User),
                   const SizedBox(
                     height: 20,
@@ -169,11 +170,11 @@ class EditLayout extends StatelessWidget {
                       type: TextInputType.text,
                       validate: (String? value) {
                         if (value!.isEmpty) {
-                          return 'The bio field can\'t be Empty';
+                          return 'The bio field can\'t be Empty'.tr;
                         }
                         return null;
                       },
-                      label: 'Bio',
+                      label: 'Bio'.tr,
                       prefix: IconBroken.Info_Circle),
                   const SizedBox(
                     height: 20,
@@ -183,11 +184,11 @@ class EditLayout extends StatelessWidget {
                       type: TextInputType.phone,
                       validate: (String? value) {
                         if (value!.isEmpty) {
-                          return 'The phone field can\'t be Empty';
+                          return 'The phone field can\'t be Empty'.tr;
                         }
                         return null;
                       },
-                      label: 'Phone',
+                      label: 'Phone'.tr,
                       prefix: IconBroken.Call),
                 ],
               ),

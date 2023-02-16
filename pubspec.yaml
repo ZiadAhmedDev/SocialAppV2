@@ -37,6 +37,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   fluttertoast: ^8.1.2
   carousel_slider: ^4.2.1
+  get: ^4.6.5
   flutter:
     sdk: flutter
 
@@ -53,6 +54,10 @@ dependencies:
   font_awesome_flutter: ^10.3.0
   google_sign_in: ^5.4.4
   pin_code_fields: ^7.4.0
+  intl: ^0.17.0
+  google_fonts: ^4.0.3
+  device_preview: ^1.1.0
+  timeago: ^3.3.0
 
 dev_dependencies:
   flutter_test:

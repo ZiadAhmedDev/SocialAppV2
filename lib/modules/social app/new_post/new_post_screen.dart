@@ -1,13 +1,15 @@
-import 'dart:collection';
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/styles/colors.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
-
+import 'package:timeago/timeago.dart' as timeago;
 import '../../../layout/social_layout/cubit/social_cubit.dart';
+import '../../../shared/components/constants.dart';
 
 class NewPostLayout extends StatelessWidget {
   NewPostLayout({super.key});
@@ -15,6 +17,7 @@ class NewPostLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var model = SocialCubit.get(context).socialModel;
     return BlocConsumer<SocialCubit, SocialState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -25,25 +28,26 @@ class NewPostLayout extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: defaultTextButton(
                       function: () {
+                        // FirebaseFirestore.instance.
+                        now = DateTime.now().millisecondsSinceEpoch;
                         if (SocialCubit.get(context).postImage == null) {
                           SocialCubit.get(context).createNewPost(
-                              date: DateTime.now().toString(),
-                              text: textControl.text);
+                              date: now.toString(), text: textControl.text);
                         } else {
                           SocialCubit.get(context).uploadPostImage(
-                            date: DateTime.now().toString(),
+                            date: now.toString(),
                             text: textControl.text,
                           );
                         }
                       },
-                      text: 'Post',
+                      text: 'Post'.tr,
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
                           .copyWith(color: defaultColor)),
                 )
               ],
-              title: const Text('New Post')),
+              title: Text('New Post'.tr)),
           body: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * .88,
@@ -71,7 +75,7 @@ class NewPostLayout extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Text(
-                          'Ziad Ahmed   ',
+                          '${model!.name}   ',
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -88,7 +92,7 @@ class NewPostLayout extends StatelessWidget {
                           type: TextInputType.text,
                           hasBorder: false,
                           style: const TextStyle(fontSize: 17),
-                          hint: 'What is going into your mind.....'),
+                          hint: 'What is going into your mind.....'.tr),
                     ),
                   ),
                   const SizedBox(
@@ -148,7 +152,7 @@ class NewPostLayout extends StatelessWidget {
                                   SocialCubit.get(context).getPostImage();
                                 },
                                 child: Text(
-                                  'Add Photo',
+                                  'Add Photo'.tr,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -160,7 +164,7 @@ class NewPostLayout extends StatelessWidget {
                                 child: TextButton(
                                   onPressed: () {},
                                   child: Text(
-                                    '#tags',
+                                    '#tags'.tr,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!

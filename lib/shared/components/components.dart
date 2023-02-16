@@ -1,9 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
+import '../../modules/locale/locale_controller.dart';
+import '../network/local/cache_helper.dart';
 import '../styles/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+MyLocaleController localControl = Get.find();
 // Widget buildArticleItems(article, context) => InkWell(
 //       onTap: () {
 //         navigateTo(context, WebViewScreen(article['url']));
@@ -77,14 +84,41 @@ Widget listDivider() => const Padding(
 PreferredSizeWidget? zAppBar(context, {action, required Widget title}) {
   return AppBar(
     leading: IconButton(
-      onPressed: () => Navigator.pop(context),
-      icon: const Icon(IconBroken.Arrow___Left_2),
-    ),
+        onPressed: () {
+          Navigator.pop(context);
+          print(CacheHelper.getData(key: 'lang'));
+        },
+        icon: CacheHelper.getData(key: 'lang') == 'ar'
+            ? Icon(IconBroken.Arrow___Right_2)
+            : Icon(IconBroken.Arrow___Left_2)),
     actions: action,
     titleSpacing: 0,
     title: title,
   );
 }
+
+void showLoading({Color? loadingColor}) {
+  showDialog<String>(
+      barrierDismissible: false,
+      context: Get.context!,
+      barrierColor: Colors.black38,
+      builder: (BuildContext context) => WillPopScope(
+            onWillPop: () async {
+              return false;
+            },
+            child: AlertDialog(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              content: Center(
+                child: CircularProgressIndicator(
+                  color: Get.theme.colorScheme.primary,
+                ),
+              ),
+            ),
+          ));
+}
+
+void hideLoading() => Navigator.pop(Get.context!);
 
 // Widget articleBuilder({required list, context, isSearch = false}) =>
 //     ConditionalBuilder(

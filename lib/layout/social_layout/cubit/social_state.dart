@@ -35,6 +35,10 @@ class SocialErrorGetAllUsers extends SocialState {
 
 class SocialSuccessLikePosts extends SocialState {}
 
+class NotificationActiveState extends SocialState {}
+
+class NotificationInactiveState extends SocialState {}
+
 class SocialErrorLikePosts extends SocialState {
   final String error;
 

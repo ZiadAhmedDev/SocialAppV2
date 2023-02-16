@@ -2,17 +2,23 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:news_app/modules/locale/locale_controller.dart';
 import 'package:news_app/shared/bloc_observer.dart';
+import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
+import 'package:news_app/shared/styles/colors.dart';
 import 'package:news_app/shared/styles/themes.dart';
 import 'layout/social_layout/cubit/social_cubit.dart';
 import 'layout/social_layout/social_layout.dart';
-import 'modules/social app/Register/cubit/social_register_cubit.dart';
-import 'modules/social app/Register/phone_auth/otp_screen.dart';
+import 'modules/locale/locale.dart';
 import 'modules/social app/login/cubit/social_login_cubit.dart';
 import 'modules/social app/login/login_screen.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -22,6 +28,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
+  timeago.setLocaleMessages('ar', timeago.ArMessages());
+  timeago.setLocaleMessages('ar_short', timeago.ArShortMessages());
+  timeago.setLocaleMessages('en', timeago.EnMessages());
+  timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
   DioHelper.init();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark') ?? false;
@@ -66,21 +76,32 @@ class SocialApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SocialCubit()..getNewPosts(),
+          create: (context) => SocialCubit(),
         ),
         BlocProvider(
           create: (context) => SocialLoginCubit(),
         ),
       ],
-      child: BlocBuilder<SocialCubit, SocialState>(
+      child: BlocConsumer<SocialCubit, SocialState>(
+        listener: (context, state) {
+          if (state is ThemeChange) {
+            showLoading();
+            Future.delayed(Duration(milliseconds: 700)).then((value) {
+              Get.offAll(startWidget);
+            });
+          }
+        },
         builder: (context, state) {
-          return MaterialApp(
+          MyLocaleController control = Get.put(MyLocaleController());
+          return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme: darkTheme,
+            theme: getLightTheme,
+            darkTheme: getDarkTheme,
             themeMode: SocialCubit.get(context).isDark
                 ? ThemeMode.dark
                 : ThemeMode.light,
+            locale: control.initialLang,
+            translations: MyLocale(),
             home: startWidget,
           );
         },

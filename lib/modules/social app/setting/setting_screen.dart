@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:news_app/layout/social_layout/cubit/social_cubit.dart';
 import 'package:news_app/modules/social%20app/edit_profile/edit_profile.dart';
 import 'package:news_app/shared/components/components.dart';
@@ -73,7 +74,7 @@ class SettingLayout extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          'Friends',
+                          'Friends'.tr,
                           style:
                               TextStyle(color: Colors.grey[700], fontSize: 15),
                         )
@@ -90,7 +91,7 @@ class SettingLayout extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          'Posts',
+                          'Posts'.tr,
                           style:
                               TextStyle(color: Colors.grey[700], fontSize: 15),
                         )
@@ -107,7 +108,7 @@ class SettingLayout extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          'Followers',
+                          'Followers'.tr,
                           style:
                               TextStyle(color: Colors.grey[700], fontSize: 15),
                         )
@@ -124,7 +125,7 @@ class SettingLayout extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         Text(
-                          'Followings',
+                          'Followings'.tr,
                           style:
                               TextStyle(color: Colors.grey[700], fontSize: 15),
                         )
@@ -145,7 +146,7 @@ class SettingLayout extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {},
-                    child: const Text('Edit Profile'),
+                    child: Text('Edit Profile'.tr),
                   ),
                 ),
                 const SizedBox(
@@ -171,8 +172,8 @@ class SettingLayout extends StatelessWidget {
                     onPressed: () {
                       FirebaseMessaging.instance.subscribeToTopic('AllUsers');
                     },
-                    child: const Text(
-                      'Subscribe',
+                    child: Text(
+                      'Subscribe'.tr,
                       style: TextStyle(fontSize: 17),
                     )),
                 const Spacer(
@@ -182,8 +183,8 @@ class SettingLayout extends StatelessWidget {
                   onPressed: () {
                     FirebaseMessaging.instance.unsubscribeFromTopic('AllUsers');
                   },
-                  child: const Text(
-                    'UnSubscribe',
+                  child: Text(
+                    'UnSubscribe'.tr,
                     style: TextStyle(fontSize: 17),
                   ),
                 ),

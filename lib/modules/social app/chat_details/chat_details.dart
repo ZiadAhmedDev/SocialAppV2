@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import '../../../layout/social_layout/cubit/social_cubit.dart';
 import '../../../models/message_mode.dart';
 import '../../../models/social_create_user.dart';
@@ -29,8 +30,8 @@ class ChatDetailsLayout extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
               appBar: zAppBar(
-                  title: const Text(
-                    'Chatting with',
+                  title:  Text(
+                    'Chatting with'.tr,
                   ),
                   context),
               body: ConditionalBuilder(
@@ -192,13 +193,13 @@ Widget sendBarBuilder(
               controller: messageControl,
               validator: (String? value) {
                 if (value!.isEmpty) {
-                  return 'Write Any Message';
+                  return 'Write Any Message'.tr;
                 }
                 return null;
               },
               style: const TextStyle(fontSize: 18),
-              decoration: const InputDecoration(
-                  hintText: 'Send a Message',
+              decoration:   InputDecoration(
+                  hintText: 'Send a Message'.tr,
                   labelStyle: TextStyle(fontSize: 20),
                   border: InputBorder.none),
             ),

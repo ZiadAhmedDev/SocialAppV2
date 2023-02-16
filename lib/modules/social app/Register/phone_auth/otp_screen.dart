@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../layout/social_layout/cubit/social_cubit.dart';
@@ -79,10 +80,10 @@ class _OTPPageState extends State<OTPPage> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.0),
                         child: Text(
-                          'Phone Number Verification',
+                          'Phone Number Verification'.tr,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 22),
                           textAlign: TextAlign.center,
@@ -93,7 +94,7 @@ class _OTPPageState extends State<OTPPage> {
                             horizontal: 30.0, vertical: 8),
                         child: RichText(
                           text: TextSpan(
-                            text: "Enter the code sent to ",
+                            text: "Enter the code sent to ".tr,
                             children: [
                               TextSpan(
                                   text: "+20 ${widget.phoneNumber}",
@@ -122,7 +123,7 @@ class _OTPPageState extends State<OTPPage> {
                               animationType: AnimationType.fade,
                               validator: (v) {
                                 if (v!.length < 6) {
-                                  return "you should enter all SMS code";
+                                  return "you should enter all SMS code".tr;
                                 } else {
                                   return null;
                                 }
@@ -162,7 +163,7 @@ class _OTPPageState extends State<OTPPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Text(
-                          hasError ? "please resend the code!" : "",
+                          hasError ? "please resend the code!".tr : "",
                           style: const TextStyle(
                               color: Colors.red,
                               fontSize: 12,
@@ -174,9 +175,9 @@ class _OTPPageState extends State<OTPPage> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          const Text(
-                            "Didn't receive the code? ",
+                        children: [
+                          Text(
+                            "Didn't receive the code? ".tr,
                             style:
                                 TextStyle(color: Colors.black54, fontSize: 15),
                           ),
@@ -328,7 +329,7 @@ class _OTPPageState extends State<OTPPage> {
                                       }
                                     },
                                     child: Text(
-                                      "VERIFY".toUpperCase(),
+                                      "VERIFY".toUpperCase().tr,
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,

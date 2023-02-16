@@ -58,3 +58,5 @@ String likesCollection = 'likes';
 String commentsCollection = 'Comment';
 String chatsCollection = 'chats';
 String messageCollection = 'message';
+
+int? now;

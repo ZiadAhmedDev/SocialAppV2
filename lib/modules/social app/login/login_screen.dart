@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:news_app/modules/social%20app/Register/cubit/social_register_cubit.dart';
 import 'package:news_app/modules/social%20app/feeds/feeds_screen.dart';
 import 'package:news_app/shared/components/constants.dart';
@@ -70,9 +72,10 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('LOGIN',
+                        Text('LOGIN'.tr,
                             style: Theme.of(context).textTheme.headlineSmall),
-                        Text('login now to communicate with all your friends',
+                        Text(
+                            'login now to communicate with all your friends'.tr,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
@@ -85,11 +88,11 @@ class LoginScreen extends StatelessWidget {
                             type: TextInputType.emailAddress,
                             validate: (String? value) {
                               if (value!.isEmpty) {
-                                return 'Email field can\'t be empty';
+                                return 'Email field can\'t be empty'.tr;
                               }
                               return null;
                             },
-                            label: 'Email Address/Phone',
+                            label: 'Email Address/Phone'.tr,
                             prefix: Icons.email_outlined),
                         const SizedBox(
                           height: 25,
@@ -113,11 +116,11 @@ class LoginScreen extends StatelessWidget {
                             },
                             validate: (String? value) {
                               if (value!.isEmpty) {
-                                return 'password field can\'t be empty';
+                                return 'password field can\'t be empty'.tr;
                               }
                               return null;
                             },
-                            label: 'Password',
+                            label: 'Password'.tr,
                             prefix: Icons.lock_outlined),
                         const SizedBox(
                           height: 25,
@@ -132,7 +135,7 @@ class LoginScreen extends StatelessWidget {
                                       password: passwordController.text);
                                 }
                               },
-                              text: 'Login'),
+                              text: 'Login'.tr),
                           fallback: (context) => const Center(
                             child: CircularProgressIndicator(),
                           ),
@@ -218,8 +221,8 @@ class LoginScreen extends StatelessWidget {
                                       FontAwesomeIcons.google,
                                       color: Colors.orange,
                                     ),
-                                    label: const Text(
-                                      'Sign In with Google account',
+                                    label: Text(
+                                      'Sign In with Google account'.tr,
                                       style: TextStyle(fontSize: 18),
                                     )),
                               ),
@@ -229,15 +232,15 @@ class LoginScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              'Don\'t have an account?',
+                            Text(
+                              'Don\'t have an account?'.tr,
                               style: TextStyle(fontSize: 16),
                             ),
                             defaultTextButton(
                               function: () {
                                 navigateTo(context, RegisterScreen());
                               },
-                              text: 'register',
+                              text: 'register'.tr,
                             )
                           ],
                         )
