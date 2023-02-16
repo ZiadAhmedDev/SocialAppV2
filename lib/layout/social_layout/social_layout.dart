@@ -29,16 +29,6 @@ class SocialLayout extends StatelessWidget {
           appBar: AppBar(
             actions: [
               IconButton(
-                onPressed: () async {
-                  if (state is SignInGoogleSuccess) {
-                    await SocialRegisterCubit().signOutGoogle(context);
-                  } else {
-                    signOut(context);
-                  }
-                },
-                icon: const Icon(IconBroken.Logout),
-              ),
-              IconButton(
                 onPressed: () {
                   bool isActive = state is NotificationActiveState;
                   SocialCubit.get(context).toggleNotificationIcon(isActive);
@@ -66,6 +56,12 @@ class SocialLayout extends StatelessWidget {
                   SocialCubit.get(context).changeThemeMode();
                 },
                 icon: const Icon(Icons.mode_night_outlined),
+              ),
+              IconButton(
+                onPressed: () async {
+                  signOut(context);
+                },
+                icon: const Icon(IconBroken.Logout),
               ),
             ],
             title: Text(

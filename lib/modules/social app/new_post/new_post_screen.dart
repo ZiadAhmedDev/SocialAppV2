@@ -87,12 +87,23 @@ class NewPostLayout extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: defaultFormField(
-                          controller: textControl,
-                          type: TextInputType.text,
-                          hasBorder: false,
-                          style: const TextStyle(fontSize: 17),
-                          hint: 'What is going into your mind.....'.tr),
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: defaultFormField(
+                            controller: textControl,
+                            type: TextInputType.multiline,
+                            hasBorder: false,
+                            maxLine: 10,
+                            isTextAlign: TextAlign.center,
+                            typeAction: TextInputAction.newline,
+                            style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).size.width * .06,
+                                fontFamily: 'Jannah',
+                                height: 1.5,
+                                letterSpacing: 1.5),
+                            hint: 'What is going into your mind.....'.tr),
+                      ),
                     ),
                   ),
                   const SizedBox(

@@ -4,11 +4,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/models/social_create_user.dart';
-import 'package:news_app/modules/chat_details/chat_details.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/styles/colors.dart';
 
 import '../../../layout/social_layout/cubit/social_cubit.dart';
+import '../chat_details/chat_details.dart';
 
 class ChatLayout extends StatelessWidget {
   const ChatLayout({super.key});
@@ -18,15 +18,17 @@ class ChatLayout extends StatelessWidget {
     return BlocConsumer<SocialCubit, SocialState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return ConditionalBuilder(
-          condition: SocialCubit.get(context).userList.isNotEmpty,
-          builder: (context) => ListView.separated(
-              itemBuilder: (context, index) => allUserBuilder(
-                  context, SocialCubit.get(context).userList[index]),
-              separatorBuilder: (context, index) => listDivider(),
-              itemCount: SocialCubit.get(context).userList.length),
-          fallback: (context) => const Center(
-            child: CircularProgressIndicator(),
+        return Scaffold(
+          body: ConditionalBuilder(
+            condition: SocialCubit.get(context).userList.isNotEmpty,
+            builder: (context) => ListView.separated(
+                itemBuilder: (context, index) => allUserBuilder(
+                    context, SocialCubit.get(context).userList[index]),
+                separatorBuilder: (context, index) => listDivider(),
+                itemCount: SocialCubit.get(context).userList.length),
+            fallback: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
         );
       },

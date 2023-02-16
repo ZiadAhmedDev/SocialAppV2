@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/utils/scroll_behavior.dart';
 import '../../modules/locale/locale_controller.dart';
 import '../network/local/cache_helper.dart';
 import '../styles/colors.dart';
@@ -193,7 +195,7 @@ Widget defaultFormField(
         String? Function(String?)? validate,
         String? label,
         TextStyle? style,
-        IconData? prefix,
+        Widget? IconDataPrefix,
         bool readable = false,
         IconData? suffix,
         TextStyle? labelStyle,
@@ -202,24 +204,30 @@ Widget defaultFormField(
         bool isEditable = true,
         TextAlign isTextAlign = TextAlign.start,
         bool hasBorder = true,
+        TextInputAction? typeAction,
+        int? maxLine = 1,
+        TextStyle? hintStyle,
         String? hint}) =>
     TextFormField(
       style: style,
       controller: controller,
+      textInputAction: typeAction,
       textAlign: isTextAlign,
       keyboardType: type,
       obscureText: isPassword,
       enabled: isClickable && isEditable,
       onFieldSubmitted: onSubmit,
       onChanged: onChange,
+      maxLines: maxLine,
       readOnly: readable,
       onTap: onTap,
       validator: validate,
       decoration: InputDecoration(
+        hintStyle: hintStyle,
         hintText: hint,
         labelText: label,
         labelStyle: labelStyle,
-        prefixIcon: Icon(prefix),
+        prefixIcon: IconDataPrefix,
         suffixIcon: suffix != null
             ? IconButton(
                 onPressed: suffixPressed,
@@ -278,6 +286,37 @@ Color? chooseToasterColor(ToasterState state) {
   return color;
 }
 
+Widget responsiveFrameWork(widget) => ScrollConfiguration(
+      behavior: const ScrollBehaviorModified(),
+      child: ResponsiveWrapper.builder(ClampingScrollWrapper(child: widget!),
+          minWidth: 380,
+          defaultScale: true,
+          breakpoints: const [
+            ResponsiveBreakpoint.autoScale(480, name: MOBILE),
+            ResponsiveBreakpoint.autoScale(800, name: TABLET, scaleFactor: 1.5),
+            ResponsiveBreakpoint.autoScale(1000,
+                name: 'L TABLET', scaleFactor: 1.6),
+            ResponsiveBreakpoint.autoScale(1500,
+                name: DESKTOP, scaleFactor: 1.7),
+          ],
+          breakpointsLandscape: const [
+            ResponsiveBreakpoint.autoScaleDown(480, name: MOBILE),
+            ResponsiveBreakpoint.autoScaleDown(800,
+                name: TABLET, scaleFactor: 1.5),
+            ResponsiveBreakpoint.autoScaleDown(1000,
+                name: 'L TABLET', scaleFactor: 1.2),
+            ResponsiveBreakpoint.autoScaleDown(1500,
+                name: DESKTOP, scaleFactor: 1.3),
+          ]),
+    );
+
+class ScrollBehaviorModified extends ScrollBehavior {
+  const ScrollBehaviorModified();
+  @override
+  ScrollPhysics getScrollPhysics(BuildContext context) {
+    return const ClampingScrollPhysics();
+  }
+}
 // Widget listProductsBuilder(model, context, {bool isOldPrice = true}) {
 //   return Padding(
 //     padding: const EdgeInsets.all(10),

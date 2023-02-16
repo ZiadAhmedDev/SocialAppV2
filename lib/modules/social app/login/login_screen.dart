@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                               return null;
                             },
                             label: 'Email Address/Phone'.tr,
-                            prefix: Icons.email_outlined),
+                            IconDataPrefix: Icon(Icons.email_outlined)),
                         const SizedBox(
                           height: 25,
                         ),
@@ -121,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                               return null;
                             },
                             label: 'Password'.tr,
-                            prefix: Icons.lock_outlined),
+                            IconDataPrefix: Icon(Icons.lock_outlined)),
                         const SizedBox(
                           height: 25,
                         ),

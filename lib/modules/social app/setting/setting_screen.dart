@@ -144,19 +144,25 @@ class SettingLayout extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Edit Profile'.tr),
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: OutlinedButton(
+                      onPressed: () {},
+                      child: Text('Edit Profile'.tr),
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
+                SizedBox(
+                  width: 5,
                 ),
-                OutlinedButton(
-                  onPressed: () {
-                    navigateTo(context, const EditLayout());
-                  },
-                  child: const Icon(IconBroken.Edit),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: OutlinedButton(
+                    onPressed: () {
+                      navigateTo(context, const EditLayout());
+                    },
+                    child: const Icon(IconBroken.Edit),
+                  ),
                 )
               ],
             ),

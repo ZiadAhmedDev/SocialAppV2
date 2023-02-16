@@ -1,5 +1,7 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -18,7 +20,6 @@ import 'layout/social_layout/social_layout.dart';
 import 'modules/locale/locale.dart';
 import 'modules/social app/login/cubit/social_login_cubit.dart';
 import 'modules/social app/login/login_screen.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -28,22 +29,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
-  timeago.setLocaleMessages('ar', timeago.ArMessages());
-  timeago.setLocaleMessages('ar_short', timeago.ArShortMessages());
-  timeago.setLocaleMessages('en', timeago.EnMessages());
-  timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
+
   DioHelper.init();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark') ?? false;
   Widget? widget;
   uId = CacheHelper.getData(key: 'uId');
-  var token = await FirebaseMessaging.instance.getToken();
-  print(token.toString());
-  print(
-      'uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()');
-  print(uId.toString());
-  print(
-      'uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()');
+  // var token = await FirebaseMessaging.instance.getToken();
+  // print(token.toString());
+  // print(
+  //     'uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()');
+  // print(uId.toString());
+  // print(
+  //     'uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()');
 
   await FirebaseMessaging.instance.subscribeToTopic('allDevices');
 
@@ -63,7 +61,12 @@ void main() async {
   }
 
   runApp(
-    SocialApp(isDark: isDark!, startWidget: widget), // Wrap your app
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) =>
+          SocialApp(isDark: isDark!, startWidget: widget!), // Wrap your app
+    ),
+    // Wrap your app
   );
 }
 
@@ -73,6 +76,7 @@ class SocialApp extends StatelessWidget {
   const SocialApp({super.key, required this.isDark, required this.startWidget});
   @override
   Widget build(BuildContext context) {
+    MyLocaleController control = Get.put(MyLocaleController());
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -92,15 +96,20 @@ class SocialApp extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          MyLocaleController control = Get.put(MyLocaleController());
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: getLightTheme,
             darkTheme: getDarkTheme,
+            useInheritedMediaQuery: true,
+            builder: ((context, child) {
+              // DevicePreview.appBuilder;
+              return responsiveFrameWork(child);
+            }),
             themeMode: SocialCubit.get(context).isDark
                 ? ThemeMode.dark
                 : ThemeMode.light,
             locale: control.initialLang,
+            scrollBehavior: const ScrollBehaviorModified(),
             translations: MyLocale(),
             home: startWidget,
           );

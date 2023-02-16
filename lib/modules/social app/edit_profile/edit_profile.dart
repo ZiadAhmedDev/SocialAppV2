@@ -105,6 +105,7 @@ class EditLayout extends StatelessWidget {
                                 },
                                 icon: const Icon(
                                   IconBroken.Camera,
+                                  color: Colors.black,
                                   // color: defaultColor,
                                 ),
                               ),
@@ -131,7 +132,7 @@ class EditLayout extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: CircleAvatar(
-                              radius: 17,
+                              radius: 18,
                               backgroundColor: defaultColor,
                               child: IconButton(
                                 onPressed: () {
@@ -140,6 +141,7 @@ class EditLayout extends StatelessWidget {
                                 icon: const Icon(
                                   IconBroken.Camera,
                                   size: 20,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -151,45 +153,54 @@ class EditLayout extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  defaultFormField(
-                      controller: nameController,
-                      type: TextInputType.name,
-                      validate: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'The name field can\'t be Empty'.tr;
-                        }
-                        return null;
-                      },
-                      label: 'Name'.tr,
-                      prefix: IconBroken.User),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: defaultFormField(
+                        controller: nameController,
+                        type: TextInputType.name,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'The name field can\'t be Empty'.tr;
+                          }
+                          return null;
+                        },
+                        label: 'Name'.tr,
+                        IconDataPrefix: Icon(IconBroken.User)),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  defaultFormField(
-                      controller: bioController,
-                      type: TextInputType.text,
-                      validate: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'The bio field can\'t be Empty'.tr;
-                        }
-                        return null;
-                      },
-                      label: 'Bio'.tr,
-                      prefix: IconBroken.Info_Circle),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: defaultFormField(
+                        controller: bioController,
+                        type: TextInputType.text,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'The bio field can\'t be Empty'.tr;
+                          }
+                          return null;
+                        },
+                        label: 'Bio'.tr,
+                        IconDataPrefix: Icon(IconBroken.Info_Circle)),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
-                  defaultFormField(
-                      controller: phoneController,
-                      type: TextInputType.phone,
-                      validate: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'The phone field can\'t be Empty'.tr;
-                        }
-                        return null;
-                      },
-                      label: 'Phone'.tr,
-                      prefix: IconBroken.Call),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: defaultFormField(
+                        controller: phoneController,
+                        type: TextInputType.phone,
+                        validate: (String? value) {
+                          if (value!.isEmpty) {
+                            return 'The phone field can\'t be Empty'.tr;
+                          }
+                          return null;
+                        },
+                        label: 'Phone'.tr,
+                        IconDataPrefix: Icon(IconBroken.Call)),
+                  ),
                 ],
               ),
             ),

@@ -1,22 +1,27 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:news_app/models/new_post.dart';
-import 'package:news_app/shared/components/constants.dart';
+import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/styles/colors.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
 import '../../../layout/social_layout/cubit/social_cubit.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../locale/locale_controller.dart';
+enum _MenuItem {
+  Chat,
+  Save,
+  Delete,
+  show_Less,
+}
 
 class FeedsLayout extends StatelessWidget {
   FeedsLayout({super.key});
 
   bool first = true;
+
   @override
   Widget build(BuildContext context) {
     SocialCubit blocController = SocialCubit.get(context);
@@ -33,33 +38,6 @@ class FeedsLayout extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              // Card(
-              //   elevation: 5.0,
-              //   clipBehavior: Clip.antiAliasWithSaveLayer,
-              //   child: Stack(alignment: Alignment.centerLeft, children: [
-              //     Image.network(
-              //       'https://img.freepik.com/free-photo/handsome-enthusiastic-smiling-man-with-bristle-grey-sweater-holding-smartphone-screen-facing-camera-pointing-mobile-display-grinning-recommend-application-carsharing-shopping-site_176420-51790.jpg?w=1380&t=st=1674640890~exp=1674641490~hmac=87c0fbdfb8e1e7935ba000fd0e7f965d2fd52e126014db1b5127dee1e138e05e',
-              //       fit: BoxFit.cover,
-              //       height: 190,
-              //       width: double.infinity,
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.all(10.0),
-              //       child: SizedBox(
-              //         width: 120,
-              //         height: 180,
-              //         child: Text('''Communicate
-              //            with
-              //            friends''',
-              //             style: Theme.of(context)
-              //                 .textTheme
-              //                 .bodyLarge!
-              //                 .copyWith(color: Colors.black, fontSize: 17),
-              //             textAlign: TextAlign.center),
-              //       ),
-              //     ),
-              //   ]),
-              // ),
               ConditionalBuilder(
                 condition: SocialCubit.get(context).postList.isNotEmpty &&
                     SocialCubit.get(context).postId.isNotEmpty &&
@@ -77,7 +55,7 @@ class FeedsLayout extends StatelessWidget {
                 fallback: (context) => Center(
                   child: const Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(50.0),
                       child: CircularProgressIndicator(),
                     ),
                   ),
@@ -93,8 +71,9 @@ class FeedsLayout extends StatelessWidget {
 
 Widget newPost(context, NewPostModel model, index) {
   // final currentTime = new DateTime.now();
-  String Date = timeago
-      .format(DateTime.fromMillisecondsSinceEpoch(int.parse(model.date!)));
+  String Date = timeago.format(
+      DateTime.fromMillisecondsSinceEpoch(int.parse(model.date!)),
+      locale: CacheHelper.getData(key: 'lang'));
   return Card(
     margin: const EdgeInsets.all(10),
     elevation: 5,
@@ -140,30 +119,61 @@ Widget newPost(context, NewPostModel model, index) {
           ),
           const Spacer(),
           PopupMenuButton(
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  value: 'delete',
-                  child: Container(
-                    height: 120,
-                    child: Column(
-                      children: [
-                        Text('Delete'),
-                      ],
-                    ),
-                  ),
-                ),
-              ];
-            },
+            shape:
+                BeveledRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            elevation: 2,
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem(
+                child: Text('Chat'),
+                value: _MenuItem.Chat,
+              ),
+              PopupMenuItem(child: Text('Save'), value: _MenuItem.Save),
+              PopupMenuItem(child: Text('Delete'), value: _MenuItem.Delete),
+              PopupMenuItem(
+                  child: Text('Show Less'), value: _MenuItem.show_Less),
+            ],
             onSelected: (value) {
-              // Handle the selected value here
-              if (value == 'delete') {
-                // Delete the post
+              switch (value) {
+                case _MenuItem.Chat:
+                  SocialCubit.get(context).changeScreenIndex(1);
+                  break;
+                case _MenuItem.Delete:
+                  Get.showSnackbar(GetSnackBar(
+                    title: 'Hi Mr.${model.name}',
+                    icon: Icon(
+                      IconBroken.Delete,
+                      color: Colors.orange,
+                    ),
+                    message: 'This post will Delete from your Feed soon..',
+                    duration: Duration(seconds: 2),
+                  ));
+                  break;
+                case _MenuItem.Save:
+                  Get.showSnackbar(GetSnackBar(
+                    title: 'Hi Mr.${model.name}',
+                    icon: Icon(
+                      IconBroken.Star,
+                      color: Colors.orange,
+                    ),
+                    message: 'Saving.....',
+                    duration: Duration(seconds: 2),
+                  ));
+                  break;
+                case _MenuItem.show_Less:
+                  Get.showSnackbar(GetSnackBar(
+                    title: 'Hi Mr.${model.name}',
+                    icon: Icon(
+                      FontAwesomeIcons.person,
+                      color: Colors.orange,
+                    ),
+                    message:
+                        'You will not show someThing like this trash posts again',
+                    duration: Duration(seconds: 4),
+                  ));
+                  break;
               }
             },
-            child: IconButton(
-                onPressed: () {}, icon: const Icon(Icons.more_horiz)),
-          )
+          ),
         ],
       ),
       Padding(
@@ -183,6 +193,7 @@ Widget newPost(context, NewPostModel model, index) {
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 height: 1.3,
               ),
+          maxLines: 3,
         ),
       ),
       if (model.postImage != '')
@@ -255,7 +266,7 @@ Widget newPost(context, NewPostModel model, index) {
       Row(
         children: [
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(2.0),
             child: CircleAvatar(
               radius: 25,
               backgroundImage: NetworkImage(
@@ -264,61 +275,66 @@ Widget newPost(context, NewPostModel model, index) {
             ),
           ),
           const SizedBox(
-            width: 4,
+            width: 2,
           ),
           TextButton(
             onPressed: () {},
             child: Text(
               'Write a comments....'.tr,
-              style: Theme.of(context).textTheme.bodyMedium!,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
-          const Spacer(),
-          MaterialButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: () {
-              SocialCubit.get(context)
-                  .addLikes(SocialCubit.get(context).postId[index]);
-            },
-            child: Row(
-              children: [
-                const Icon(
-                  IconBroken.Heart,
-                  color: Colors.red,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'Like'.tr,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.red),
-                ),
-              ],
+          // const Spacer(),
+          Expanded(
+            child: MaterialButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () {
+                SocialCubit.get(context)
+                    .addLikes(SocialCubit.get(context).postId[index]);
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    IconBroken.Heart,
+                    color: Colors.red,
+                  ),
+                  const SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    'Like'.tr,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(color: Colors.red),
+                  ),
+                ],
+              ),
             ),
           ),
-          MaterialButton(
-            padding: const EdgeInsets.all(0),
-            onPressed: () {},
-            child: Row(
-              children: [
-                const Icon(
-                  IconBroken.Send,
-                  color: Colors.green,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'Share'.tr,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.green),
-                ),
-              ],
+          Expanded(
+            child: MaterialButton(
+              padding: const EdgeInsets.all(0),
+              onPressed: () {},
+              child: Row(
+                children: [
+                  const Icon(
+                    IconBroken.Send,
+                    color: Colors.green,
+                    // size: 18,
+                  ),
+                  const SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    'Share'.tr,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.green),
+                  ),
+                ],
+              ),
             ),
           )
         ],

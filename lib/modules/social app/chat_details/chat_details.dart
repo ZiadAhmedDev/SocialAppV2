@@ -30,7 +30,7 @@ class ChatDetailsLayout extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
               appBar: zAppBar(
-                  title:  Text(
+                  title: Text(
                     'Chatting with'.tr,
                   ),
                   context),
@@ -72,11 +72,14 @@ class ChatDetailsLayout extends StatelessWidget {
                                 itemCount:
                                     SocialCubit.get(context).message.length),
                           ),
-                          sendBarBuilder(
-                            messageControl,
-                            context,
-                            model,
-                          )
+                          Container(
+                            margin: EdgeInsets.all(20),
+                            child: sendBarBuilder(
+                              messageControl,
+                              context,
+                              model,
+                            ),
+                          ),
                         ],
                       ),
                     );
@@ -176,6 +179,7 @@ Widget receiverMessageBuilder(MessageModel model) {
 Widget sendBarBuilder(
     TextEditingController messageControl, context, SocialUserModel? model) {
   return Container(
+    margin: EdgeInsets.all(10),
     decoration: BoxDecoration(
       border: Border.all(
         color: Colors.grey,
@@ -198,7 +202,8 @@ Widget sendBarBuilder(
                 return null;
               },
               style: const TextStyle(fontSize: 18),
-              decoration:   InputDecoration(
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(vertical: 12),
                   hintText: 'Send a Message'.tr,
                   labelStyle: TextStyle(fontSize: 20),
                   border: InputBorder.none),
@@ -206,7 +211,7 @@ Widget sendBarBuilder(
           ),
         ),
         Container(
-          height: 70,
+          height: 80,
           color: defaultColor,
           child: MaterialButton(
             onPressed: () {

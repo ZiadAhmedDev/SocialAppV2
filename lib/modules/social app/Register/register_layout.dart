@@ -95,7 +95,7 @@ class RegisterScreen extends StatelessWidget {
                               return null;
                             },
                             label: 'Full Name'.tr,
-                            prefix: Icons.person),
+                            IconDataPrefix: Icon(Icons.person)),
                         const SizedBox(
                           height: 25,
                         ),
@@ -109,7 +109,7 @@ class RegisterScreen extends StatelessWidget {
                               return null;
                             },
                             label: 'Phone'.tr,
-                            prefix: Icons.phone_android_rounded),
+                            IconDataPrefix: Icon(Icons.phone_android_rounded)),
                         const SizedBox(
                           height: 25,
                         ),
@@ -123,7 +123,7 @@ class RegisterScreen extends StatelessWidget {
                               return null;
                             },
                             label: 'Email Address'.tr,
-                            prefix: Icons.email_outlined),
+                            IconDataPrefix: Icon(Icons.email_outlined)),
                         const SizedBox(
                           height: 25,
                         ),
@@ -165,7 +165,7 @@ class RegisterScreen extends StatelessWidget {
                               return null;
                             },
                             label: 'Password'.tr,
-                            prefix: Icons.lock_outlined),
+                            IconDataPrefix: Icon(Icons.lock_outlined)),
                         const SizedBox(
                           height: 25,
                         ),
