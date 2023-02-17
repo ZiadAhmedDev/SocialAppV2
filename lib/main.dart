@@ -5,21 +5,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:news_app/modules/locale/locale_controller.dart';
 import 'package:news_app/shared/bloc_observer.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
-import 'package:news_app/shared/styles/colors.dart';
 import 'package:news_app/shared/styles/themes.dart';
 import 'layout/social_layout/cubit/social_cubit.dart';
 import 'layout/social_layout/social_layout.dart';
 import 'modules/locale/locale.dart';
 import 'modules/social app/login/cubit/social_login_cubit.dart';
 import 'modules/social app/login/login_screen.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -29,20 +27,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
-
   DioHelper.init();
   await CacheHelper.init();
   bool? isDark = CacheHelper.getData(key: 'isDark') ?? false;
   Widget? widget;
   uId = CacheHelper.getData(key: 'uId');
-  // var token = await FirebaseMessaging.instance.getToken();
-  // print(token.toString());
-  // print(
-  //     'uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()');
-  // print(uId.toString());
-  // print(
-  //     'uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()uId.toString()');
-
+  timeago.setLocaleMessages('ar', timeago.ArMessages());
   await FirebaseMessaging.instance.subscribeToTopic('allDevices');
 
   FirebaseMessaging.onMessage.listen((event) {
@@ -90,8 +80,8 @@ class SocialApp extends StatelessWidget {
         listener: (context, state) {
           if (state is ThemeChange) {
             showLoading();
-            Future.delayed(Duration(milliseconds: 700)).then((value) {
-              Get.offAll(startWidget);
+            Future.delayed(Duration(milliseconds: 200)).then((value) {
+              Get.offAll(() => startWidget);
             });
           }
         },
@@ -102,10 +92,9 @@ class SocialApp extends StatelessWidget {
             darkTheme: getDarkTheme,
             useInheritedMediaQuery: true,
             builder: ((context, child) {
-              // DevicePreview.appBuilder;
               return responsiveFrameWork(child);
             }),
-            themeMode: SocialCubit.get(context).isDark
+            themeMode: CacheHelper.getData(key: 'isDark')
                 ? ThemeMode.dark
                 : ThemeMode.light,
             locale: control.initialLang,

@@ -1,5 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../components/constants.dart';
 
 class CacheHelper {

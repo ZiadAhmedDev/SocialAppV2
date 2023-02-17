@@ -1,13 +1,10 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/styles/colors.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import '../../../layout/social_layout/cubit/social_cubit.dart';
 import '../../../shared/components/constants.dart';
 
@@ -101,7 +98,7 @@ class NewPostLayout extends StatelessWidget {
                                     MediaQuery.of(context).size.width * .06,
                                 fontFamily: 'Jannah',
                                 height: 1.5,
-                                letterSpacing: 1.5),
+                                letterSpacing: 1.3),
                             hint: 'What is going into your mind.....'.tr),
                       ),
                     ),

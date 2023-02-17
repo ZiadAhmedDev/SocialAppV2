@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:news_app/shared/components/components.dart';
-import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/styles/colors.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
 import '../../../layout/social_layout/cubit/social_cubit.dart';
@@ -20,15 +19,8 @@ class EditLayout extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var model = SocialCubit.get(context).socialModel;
-          // printFullText(
-          //     'profileImageprofileImageprofileImageprofileImageprofileImage');
           var profileImage = SocialCubit.get(context).profileImage;
-          // printFullText(
-          //     'profileImageprofileImageprofileImageprofileImageprofileImage');
           var coverImage = SocialCubit.get(context).coverImage;
-          // print('coverImagecoverImagecoverImagecoverImagecoverImagecoverImage');
-          print(coverImage);
-          // print('coverImagecoverImagecoverImagecoverImagecoverImagecoverImage');
           nameController.text = model!.name!;
           bioController.text = model.bio!;
           phoneController.text = model.phone!;
@@ -48,7 +40,7 @@ class EditLayout extends StatelessWidget {
                     'Update'.tr,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyLarge!
+                        .headlineSmall!
                         .copyWith(color: defaultColor),
                   ),
                 ),

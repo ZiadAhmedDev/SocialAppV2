@@ -266,7 +266,7 @@ Widget newPost(context, NewPostModel model, index) {
       Row(
         children: [
           Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(5.0),
             child: CircleAvatar(
               radius: 25,
               backgroundImage: NetworkImage(

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/shared/styles/themes.dart';
-import 'colors.dart';
 
 // ThemeData lightTheme = ThemeData(
 //   primarySwatch: defaultColor,
@@ -216,43 +211,6 @@ ThemeData getLightTheme = ThemeData(
       onBackground: Colors.black, background: Colors.white),
 );
 
-// primarySwatch: Colors.deepOrange,
-// scaffoldBackgroundColor: Colors.white,
-// appBarTheme: const AppBarTheme(
-//   iconTheme: IconThemeData(color: Colors.black, size: 25),
-//   systemOverlayStyle: SystemUiOverlayStyle(
-//     statusBarColor: Colors.white,
-//     statusBarIconBrightness: Brightness.dark,
-//   ),
-//   color: Colors.white,
-//   elevation: 0,
-//   titleTextStyle: TextStyle(
-//     color: Colors.black,
-//     fontWeight: FontWeight.bold,
-//     fontSize: 25,
-//   ),
-// ),
-// bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-//   backgroundColor: Colors.white,
-//   unselectedItemColor: Colors.grey,
-//   selectedItemColor: Colors.deepOrange,
-//   selectedIconTheme: IconThemeData(
-//     size: 26,
-//   ),
-//   selectedLabelStyle: TextStyle(fontSize: 19, color: Colors.deepOrange),
-//   unselectedIconTheme: IconThemeData(color: Colors.grey),
-//   elevation: 20.0,
-// ),
-// primaryTextTheme: const TextTheme(
-//   bodyMedium: TextStyle(
-//     fontSize: 17,
-//     fontWeight: FontWeight.w600,
-//     color: Colors.black,
-//   ),
-// ),
-// colorScheme: const ColorScheme.light(
-//     onBackground: Colors.black, background: Colors.white),
-
 ThemeData getDarkTheme = ThemeData(
   // primaryColor: Colors.white,
   // floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -366,41 +324,3 @@ ThemeData getDarkTheme = ThemeData(
   colorScheme: const ColorScheme.dark(
       onBackground: Colors.white, background: Colors.black),
 );
-
-  // scaffoldBackgroundColor: const Color(0xff333739),
-  // primarySwatch: Colors.deepOrange,
-  // appBarTheme: const AppBarTheme(
-  //   iconTheme: IconThemeData(color: Colors.white, size: 30),
-  //   systemOverlayStyle: SystemUiOverlayStyle(
-  //     statusBarColor: Color(0xff333739),
-  //     statusBarIconBrightness: Brightness.light,
-  //   ),
-  //   color: Color(0xff333739),
-  //   elevation: 0,
-  //   titleTextStyle: TextStyle(
-  //     color: Colors.white,
-  //     fontWeight: FontWeight.bold,
-  //     fontSize: 25,
-  //   ),
-  // ),
-  // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-  //   backgroundColor: Color(0xff333739),
-  //   unselectedItemColor: Colors.grey,
-  //   selectedItemColor: Colors.deepOrange,
-  //   selectedIconTheme: IconThemeData(
-  //     size: 26,
-  //   ),
-  //   selectedLabelStyle: TextStyle(fontSize: 19, color: Colors.deepOrange),
-  //   unselectedIconTheme: IconThemeData(color: Colors.grey),
-  //   elevation: 20.0,
-  // ),
-  // textTheme: const TextTheme(
-  //   bodyLarge: TextStyle(
-  //     fontSize: 17,
-  //     fontWeight: FontWeight.w600,
-  //     color: Colors.white,
-  //   ),
-  // ),
-  // colorScheme: const ColorScheme.dark(
-  //     onBackground: Colors.white, background: Colors.black),
-

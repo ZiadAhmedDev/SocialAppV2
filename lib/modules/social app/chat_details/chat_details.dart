@@ -223,13 +223,6 @@ Widget sendBarBuilder(
                       text: messageControl.text);
                 }
                 messageControl.text = '';
-                // _scrollControl.animateTo(
-                //     _scrollControl
-                //             .position.maxScrollExtent +
-                //         1,
-                //     duration:
-                //         const Duration(milliseconds: 500),
-                //     curve: Curves.easeIn);
               } on Exception catch (e) {
                 printFullText(e.toString());
               }

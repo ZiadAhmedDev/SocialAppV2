@@ -1,18 +1,14 @@
-// // api
-
-// base api= https://newsapi.org/
-// Method = v2/top-headlines
-// query = ?country=eg&category=business&apiKey=aeccb357c25543fda5223023554ad8e3
-
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:news_app/main.dart';
-
 import '../../modules/social app/login/login_screen.dart';
 import '../network/local/cache_helper.dart';
 import 'components.dart';
+
+// api
+// base api= https://newsapi.org/
+// Method = v2/top-headlines
+// query = ?country=eg&category=business&apiKey=aeccb357c25543fda5223023554ad8e3
 
 // void signOut(context) {
 //   CacheHelper.sharedPreferences?.remove('token').then((value) {

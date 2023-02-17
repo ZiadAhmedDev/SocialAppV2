@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../../../layout/social_layout/cubit/social_cubit.dart';
 import '../../../../shared/components/components.dart';
 import '../../../../shared/components/constants.dart';
 import '../../login/login_screen.dart';
@@ -314,12 +311,6 @@ class _OTPPageState extends State<OTPPage> {
                                         if (SocialRegisterCubit.get(context)
                                                 .verification ==
                                             true) {
-                                          print(
-                                              '-------------------------------------------');
-                                          print(SocialRegisterCubit.get(context)
-                                              .verification);
-                                          print(
-                                              '-------------------------------------------');
                                           navigateTo(context, LoginScreen());
                                         }
                                       } on FirebaseAuthException catch (e) {

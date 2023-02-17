@@ -1,16 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 import '../../modules/locale/locale_controller.dart';
 import '../network/local/cache_helper.dart';
-import '../styles/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 MyLocaleController localControl = Get.find();
 // Widget buildArticleItems(article, context) => InkWell(

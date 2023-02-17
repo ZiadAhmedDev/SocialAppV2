@@ -1,20 +1,13 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:news_app/modules/social%20app/Register/cubit/social_register_cubit.dart';
-import 'package:news_app/modules/social%20app/feeds/feeds_screen.dart';
 import 'package:news_app/shared/components/constants.dart';
 import '../../../layout/social_layout/cubit/social_cubit.dart';
 import '../../../layout/social_layout/social_layout.dart';
 import '../../../shared/components/components.dart';
-import '../../../shared/components/constants.dart';
-import '../../../shared/components/constants.dart';
 import '../../../shared/network/local/cache_helper.dart';
 import '../Register/cubit/social_register_state.dart';
 import '../Register/register_layout.dart';
@@ -61,7 +54,6 @@ class LoginScreen extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          // user = FirebaseAuth.instance.currentUser;
           return Scaffold(
             body: Padding(
               padding: const EdgeInsets.all(20),
@@ -186,36 +178,6 @@ class LoginScreen extends StatelessWidget {
                                     onPressed: () async {
                                       await SocialRegisterCubit.get(context)
                                           .signInGoogle();
-                                      // user.uid;
-                                      // print(
-                                      //     'userData-userData-userData-userData-userData-userData-userData-userData-');
-                                      // print(user!.email);
-                                      // print(user!.displayName);
-                                      // print(user!.phoneNumber);
-                                      // print(user!.photoURL);
-                                      // print(
-                                      //     'userData-userData-userData-userData-userData-userData-userData-userData-');
-                                      // if (state is SignInGoogleSuccess) {
-                                      //   uId = state.uId;
-                                      //   CacheHelper.saveData(
-                                      //     key: 'uId',
-                                      //     value: state.uId,
-                                      //   ).then((value) async {
-                                      //     await SocialCubit.get(context)
-                                      //         .getUserData();
-                                      //     await SocialCubit.get(context)
-                                      //         .getNewPosts();
-                                      //     navigateAndReplacement(
-                                      //       context,
-                                      //       SocialLayout(),
-                                      //     );
-                                      //   });
-                                      // } else {
-                                      //   showToaster(
-                                      //       message:
-                                      //           'There is something goes wrong, pls try again!',
-                                      //       state: ToasterState.error);
-                                      // }
                                     },
                                     icon: const Icon(
                                       FontAwesomeIcons.google,

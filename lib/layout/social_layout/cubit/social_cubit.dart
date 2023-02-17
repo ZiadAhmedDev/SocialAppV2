@@ -4,7 +4,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/modules/social%20app/chat/chat_screen.dart';
 import 'package:news_app/modules/social%20app/new_post/new_post_screen.dart';
@@ -27,38 +26,18 @@ class SocialCubit extends Cubit<SocialState> {
 
   Future<void> getUserData() async {
     emit(SocialLoadingGetUserData());
-    // print('uId=uId=uId=uId=uId=uId=uId=uId=uId=uId=uId=uId=');
-    // print(uId.toString());
-    // print('uId=uId=uId=uId=uId=uId=uId=uId=uId=uId=uId=uId=');
     if (uId != null) {
       DocumentSnapshot<Map<String, dynamic>> res = await FirebaseFirestore
               .instance
               .collection(userCollection)
               .doc(uId)
               .get()
-          //     .catchError((error) {
-          //   printFullText(error.toString());
-          //   emit(SocialErrorGetUserData(error.toString()));
-          // })
+
           ;
 
-      // print(uId.toString());
-      // print(
-      //     'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
-      // print(
-      //     'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
-      // print(res.data().toString());
-      // print(
-      //     'res.data().toString()res.data().toString()res.data().toString()res.data().toString()res.data().toString()');
+
       socialModel = SocialUserModel.fromJson(res.data()!);
-      // printFullText(
-      //     'socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=');
-      // printFullText(socialModel!.email.toString());
-      // printFullText(
-      //     'socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=socialModel!.email=');
-      // printFullText('res.id=res.id=res.id=res.id=res.id=res.id=res.id=');
-      // printFullText(res.id.toString());
-      // printFullText('res.id=res.id=res.id=res.id=res.id=res.id=res.id=');
+
       emit(SocialSuccessGetUserData());
     }
   }
@@ -91,14 +70,13 @@ class SocialCubit extends Cubit<SocialState> {
   }
 
   bool isDark = false;
-
-  void changeThemeMode({bool? fromShared}) {
+  Future<void> changeThemeMode({bool? fromShared}) async {
     if (fromShared != null) {
       isDark = fromShared;
       emit(ThemeChange());
     } else {
       isDark = !isDark;
-      CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+      await CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
         emit(ThemeChange());
       });
     }
@@ -133,9 +111,6 @@ class SocialCubit extends Cubit<SocialState> {
       coverImage = File(pickedFile.path);
       print(pickedFile.path);
       uploadCoverImage();
-      printFullText('-------------------------------------');
-      printFullText(coverImage.toString());
-      printFullText('-------------------------------------');
       emit(SocialCoverImagePickedSuccessState());
     } else {
       print('No image selected.');
@@ -175,9 +150,6 @@ class SocialCubit extends Cubit<SocialState> {
         .then((value) {
       value.ref.getDownloadURL().then((value) {
         coverImageUrl = value;
-        printFullText('-------------------------------------');
-        printFullText(value.toString());
-        printFullText('-------------------------------------');
         emit(SocialCoverImageUploadSuccessState());
       }).catchError((onError) {
         emit(SocialCoverImageUploadErrorState());
@@ -205,19 +177,12 @@ class SocialCubit extends Cubit<SocialState> {
       cover: coverImageUrl!.isEmpty || coverImageUrl == null
           ? socialModel!.cover
           : coverImageUrl,
-      // isEmailVerified: socialModel!.isEmailVerified ?? false,
     );
     FirebaseFirestore.instance
         .collection(userCollection)
         .doc(modelUser.uId)
         .update(modelUser.toMap())
         .then((value) {
-      printFullText(profileImageUrl);
-      printFullText(
-          'coverImageUrlcoverImageUrlcoverImageUrlcoverImageUrlcoverImageUrl');
-      printFullText(coverImageUrl);
-      printFullText(
-          'coverImageUrlcoverImageUrlcoverImageUrlcoverImageUrlcoverImageUrl');
       getUserData();
     }).catchError((onError) {
       printFullText(onError.toString());
@@ -299,7 +264,6 @@ class SocialCubit extends Cubit<SocialState> {
 
   List<NewPostModel> postList = [];
   List<int> likes = [];
-  // List<int> comments = [];
   List<String> postId = [];
   Future<void> getNewPosts() async {
     emit(SocialLoadingGetNewPosts());
@@ -314,9 +278,6 @@ class SocialCubit extends Cubit<SocialState> {
           likes.add(value.docs.length);
           emit(SocialSuccessGetNewPosts());
         }).catchError((onError) {});
-        // element.reference.collection(commentsCollection).get().then((value) {
-        //   comments.add(value.docs.length);
-        // }).catchError((onError) {});
         postId.add(element.id);
         postList.add(NewPostModel.fromJson(element.data()));
         emit(SocialSuccessGetNewPosts());
@@ -381,7 +342,6 @@ class SocialCubit extends Cubit<SocialState> {
         .collection(messageCollection)
         .add(messageModel.toMap())
         .then((value) {
-      // printFullText(socialModel!.uId.toString());
       emit(SocialSendMessageSuccessState());
     }).catchError((onError) {
       emit(SocialSendMessageErrorState());

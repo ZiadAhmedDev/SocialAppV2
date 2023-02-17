@@ -12,11 +12,6 @@ class SocialLoginCubit extends Cubit<SocialLoginState> {
 
   void userLogin({required String email, required String password}) async {
     emit(SocialLoginLoading());
-    // UserCredential userCredential = await FirebaseAuth.instance
-    //     .signInWithEmailAndPassword(email: email, password: password)
-    //     .catchError((onError) {
-    //   emit(SocialLoginError(onError.toString()));
-    // });
     DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
         .instance
         .collection(userCollection)

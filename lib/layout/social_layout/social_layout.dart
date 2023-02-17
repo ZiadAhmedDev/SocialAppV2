@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:get/get.dart';
 import 'package:news_app/layout/social_layout/cubit/social_cubit.dart';
-import 'package:news_app/main.dart';
+
 import 'package:news_app/modules/locale/locale_controller.dart';
-import 'package:news_app/modules/social%20app/Register/cubit/social_register_cubit.dart';
-import 'package:news_app/modules/social%20app/Register/cubit/social_register_state.dart';
+
 import 'package:news_app/modules/social%20app/new_post/new_post_screen.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
