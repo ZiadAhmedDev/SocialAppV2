@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:news_app/modules/social%20app/chat/chat_screen.dart';
 import 'package:news_app/modules/social%20app/new_post/new_post_screen.dart';
@@ -28,13 +29,10 @@ class SocialCubit extends Cubit<SocialState> {
     emit(SocialLoadingGetUserData());
     if (uId != null) {
       DocumentSnapshot<Map<String, dynamic>> res = await FirebaseFirestore
-              .instance
-              .collection(userCollection)
-              .doc(uId)
-              .get()
-
-          ;
-
+          .instance
+          .collection(userCollection)
+          .doc(uId)
+          .get();
 
       socialModel = SocialUserModel.fromJson(res.data()!);
 
@@ -70,13 +68,13 @@ class SocialCubit extends Cubit<SocialState> {
   }
 
   bool isDark = false;
-  Future<void> changeThemeMode({bool? fromShared}) async {
+  void changeThemeMode({bool? fromShared}) {
     if (fromShared != null) {
       isDark = fromShared;
       emit(ThemeChange());
     } else {
       isDark = !isDark;
-      await CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
+      CacheHelper.putBoolean(key: 'isDark', value: isDark).then((value) {
         emit(ThemeChange());
       });
     }

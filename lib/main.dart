@@ -29,7 +29,7 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-  bool? isDark = CacheHelper.getData(key: 'isDark') ?? false;
+  bool isDark = CacheHelper.getData(key: 'isDark') ?? false;
   Widget? widget;
   uId = CacheHelper.getData(key: 'uId');
   timeago.setLocaleMessages('ar', timeago.ArMessages());
@@ -53,8 +53,10 @@ void main() async {
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
-      builder: (context) =>
-          SocialApp(isDark: isDark!, startWidget: widget!), // Wrap your app
+      builder: (context) => SocialApp(
+        startWidget: widget!,
+        isDark: isDark,
+      ), // Wrap your app
     ),
     // Wrap your app
   );
@@ -63,14 +65,15 @@ void main() async {
 class SocialApp extends StatelessWidget {
   final bool isDark;
   final Widget startWidget;
-  const SocialApp({super.key, required this.isDark, required this.startWidget});
+  const SocialApp({super.key, required this.startWidget, required this.isDark});
   @override
   Widget build(BuildContext context) {
     MyLocaleController control = Get.put(MyLocaleController());
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SocialCubit(),
+          create: (context) =>
+              SocialCubit()..changeThemeMode(fromShared: isDark),
         ),
         BlocProvider(
           create: (context) => SocialLoginCubit(),
@@ -94,7 +97,7 @@ class SocialApp extends StatelessWidget {
             builder: ((context, child) {
               return responsiveFrameWork(child);
             }),
-            themeMode: CacheHelper.getData(key: 'isDark')
+            themeMode: SocialCubit.get(context).isDark
                 ? ThemeMode.dark
                 : ThemeMode.light,
             locale: control.initialLang,

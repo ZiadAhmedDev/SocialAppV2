@@ -8,6 +8,7 @@ import 'package:news_app/modules/locale/locale_controller.dart';
 
 import 'package:news_app/modules/social%20app/new_post/new_post_screen.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/styles/icon_broken.dart';
 import '../../shared/components/constants.dart';
 
